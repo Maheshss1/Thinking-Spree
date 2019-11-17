@@ -16,11 +16,12 @@ import {
   FlatList
 } from 'react-native';
 
+
 const data = 
 [
   {
     question:'Akbar',
-    correctAnswerId:2,
+    correctAnswerId:3,
     option:[
       {
         id:4,
@@ -43,7 +44,7 @@ const data =
   },
   {
     question:'How Many Days in February 2018',
-    correctAnswerId:2,
+    correctAnswerId:3,
     option:[
       {
         id:4,
@@ -65,70 +66,70 @@ const data =
     ]
   },
   {
-    question:'Birbal',
-    correctAnswerId:2,
+    question:'Android Is Owned By',
+    correctAnswerId:5,
     option:[
       {
         id:4,
-        option:'Taaj'
+        option:'Microsoft'
       },
       {
         id:2,
-        option:'Agra'
+        option:'Facebook'
       },
       {
         id:3,
-        option:'Mughal'
+        option:'Amazon'
       },
       {
         id:5,
-        option:'The Great'
+        option:'Google'
       },
       
     ]
   },
   {
-    question:'Akbar',
-    correctAnswerId:2,
+    question:'34-10=?',
+    correctAnswerId:4,
     option:[
       {
         id:4,
-        option:'Taaaj'
+        option:'24'
       },
       {
         id:2,
-        option:'Agra'
+        option:'14'
       },
       {
         id:3,
-        option:'Mughal'
+        option:'-24'
       },
       {
         id:5,
-        option:'The Great'
+        option:'-14'
       },
       
     ]
   },
   {
-    question:'Akbar',
+    question:'12,24,36,48,?',
     correctAnswerId:2,
     option:[
       {
         id:4,
-        option:'Taj'
+        option:'50'
       },
       {
         id:2,
-        option:'Agra'
+        option:'60'
       },
       {
         id:3,
-        option:'Mughal'
+        option:'70'
       },
       {
         id:5,
-        option:'The Great'
+        option:'80'
       },
       
     ]
@@ -144,12 +145,16 @@ class App extends Component{
       points: 0,
       selectedItem:null,
       correctItem:null,
-      timer:10
+      timer:10,
     }
     
   }
 
   componentDidMount(){
+    this.setTimer()
+  }
+
+  setTimer = () => {
     var timerInterval = setInterval(()=>{
       if(this.state.currentQuestion>=data.length){
         clearInterval(timerInterval)
@@ -165,10 +170,6 @@ class App extends Component{
         }
       }
     },1000)
-    
-  }
-
-  componentWillUnmount(){
     
   }
 
@@ -206,7 +207,8 @@ class App extends Component{
       selectedItem:null,
       correctItem:null,
       timer:10
-    })
+    }),
+    this.setTimer()
   }
 
   render(){
@@ -234,14 +236,14 @@ class App extends Component{
         </View>
     }else if(this.state.points>=data.length/2){
       renderList =<View style={styles.congratsContainer}>
-                    <Text style={[styles.white, styles.congratsText]}>Congrats!!! You Have Earned {this.state.points} !!!</Text>
+                    <Text style={[styles.white, styles.congratsText]}>Congrats!!! You Have Earned {this.state.points}/{data.length} !!!</Text>
                     <TouchableOpacity onPress={this.restartGame}>
                       <Text style={[styles.white,styles.restartButton]}>Restart</Text>
                     </TouchableOpacity>
                   </View>
     }else{
       renderList =<View style={styles.congratsContainer}>
-                    <Text style={[styles.white, styles.congratsText]}>You Have Earned {this.state.points} !!! Better Luck Next Time!</Text>
+                    <Text style={[styles.white, styles.congratsText]}>You Have Earned {this.state.points}/{data.length} !!! Better Luck Next Time!</Text>
                     <TouchableOpacity onPress={this.restartGame}>
                       <Text style={[styles.white,styles.restartButton]}>Restart</Text>
                     </TouchableOpacity>
